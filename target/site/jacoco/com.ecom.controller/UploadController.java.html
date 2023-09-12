@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UploadController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ecom_system</a> &gt; <a href="index.source.html" class="el_package">com.ecom.controller</a> &gt; <span class="el_source">UploadController.java</span></div><h1>UploadController.java</h1><pre class="source lang-java linenums">package com.ecom.controller;
+
+import com.ecom.entity.Result;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
+
+/**
+ * ClassName: UploadController
+ * Package: com.ecom.controller
+ * Description:
+ *
+ * @ Author: wfz
+ * @ Create: 2023-05-16 - 1:13
+ * @ Version: v1.0
+ */
+
+<span class="fc" id="L24">@Slf4j</span>
+@RestController
+<span class="fc" id="L26">public class UploadController {</span>
+
+    @PostMapping(&quot;/upload&quot;)
+    public String upload(MultipartFile file) throws IOException {
+<span class="nc" id="L30">        log.info(&quot;文件上传: {}&quot;, file);</span>
+        // 获取原始文件名
+<span class="nc" id="L32">        String originalFilename = file.getOriginalFilename();</span>
+
+        // 构造唯一的文件名 - uuid
+<span class="nc" id="L35">        int index = originalFilename.lastIndexOf(&quot;.&quot;);</span>
+<span class="nc" id="L36">        String extname = originalFilename.substring(index);</span>
+<span class="nc" id="L37">        String newFilename = UUID.randomUUID().toString() + extname;</span>
+<span class="nc" id="L38">        log.info(&quot;新的文件名：{}&quot;, newFilename);</span>
+
+        // 文件存储
+<span class="nc" id="L41">        file.transferTo(new File(&quot;D:\\java_learn\\ecom_system\\target\\classes\\static\\img\\good\\&quot; + newFilename));</span>
+<span class="nc" id="L42">        return newFilename;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>方舟小铺管理系统</title>
+    <script src="./js/vue.js"></script>
+    <script src="./js/axios.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+<div id="app" class="login_container">
+    <div class="login_box">
+        <!--头像-->
+        <div class="avatar_box">
+            <img src="./img/avatar.jpg">
+        </div>
+        <!--系统名-->
+        <span id="system_name">方舟小铺管理系统</span>
+        <!--登录表单-->
+        <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
+            <!--用户名-->
+            <el-form-item prop="username">
+                <el-input v-model:lang="loginForm.username" prefix-icon="el-icon-user-solid"></el-input>
+            </el-form-item>
+            <!--密码-->
+            <el-form-item prop="password">
+                <el-input v-model:lang="loginForm.password" prefix-icon="el-icon-edit" type="password"></el-input>
+            </el-form-item>
+            <!--按钮-->
+            <el-form-item class="btns">
+                <el-button type="primary" @click="login">登录</el-button>
+                <el-button type="primary" @click="resetloginForm">重置</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
+</div>
+</body>
+
+<script lang="js">
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                // 登录表单绑定对象
+                loginForm: {
+                    username: '',
+                    password: ''
+                },
+                // 登录表单验证规则对象
+                loginFormRules: {
+                    // 验证用户名合法性
+                    username: [
+                        { required: true, message: '请输入用户名', trigger: 'blur' },
+                        { min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' }
+                    ],
+                    // 验证密码合法性
+                    password: [
+                        { required: true, message: '请输入密码', trigger: 'blur' },
+                        { min: 1, max: 10, message: '长度在 1 到 10 个字符', trigger: 'blur' }
+                    ]
+                }
+            }
+        },
+        methods: {
+            // 重置登录表单
+            resetloginForm() {
+                this.$refs.loginFormRef.resetFields();
+            },
+            // 登录+预验证
+            login() {
+                this.$refs.loginFormRef.validate(valid => {
+                    if(!valid) return;
+                    axios.post("http://localhost:8080/login", this.loginForm).then((result) => {
+                        const code = result.data.code;
+                        if(code !== 1) return this.$message.error("用户名或密码错误！");
+                        this.$message.success("登录成功！欢迎访问！");
+
+                        // // 保存token至客户端（暂不使用临牌）
+                        // const token = result.data.data;
+                        // window.sessionStorage.setItem("token", token);
+
+                        // 跳转至主页面
+                        location.href="./main.html";
+                    })
+                });
+            }
+        },
+        mounted() {}
+    })
+</script>
+
+<style>
+    html,
+    body,
+    #app {
+        padding: 0px;
+        margin: 0px;
+        height: 100%;
+    }
+
+    .login_container {
+        background-color: bisque;
+        height: 100%;
+    }
+
+    .login_box {
+        width: 450px;
+        height: 300px;
+        background-color: #fff;
+        border-radius: 3px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .avatar_box {
+        height: 100px;
+        width: 100px;
+        border: 1px solid #eee;
+        border-radius: 50px;
+        padding: 10px;
+        box-shadow: 0 0 10px #ddd;
+        position: absolute;
+        left: 10%;
+        transform: translate(-50%, -30%);
+        background-color: #fff;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #eee;
+    }
+
+    .btns {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .login_form {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+
+    #system_name {
+        font-family: "Impact", Charcoal, sans-serif;
+        font-size: 33px;
+        color: #FF8C00;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        position: absolute;
+        left: 28%;
+        top: 5%;
+    }
+
+</style>
+</html>

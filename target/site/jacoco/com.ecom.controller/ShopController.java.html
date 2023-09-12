@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShopController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ecom_system</a> &gt; <a href="index.source.html" class="el_package">com.ecom.controller</a> &gt; <span class="el_source">ShopController.java</span></div><h1>ShopController.java</h1><pre class="source lang-java linenums">package com.ecom.controller;
+
+import com.ecom.entity.Result;
+import com.ecom.entity.Shop;
+import com.ecom.service.ShopService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * ClassName: ShopController
+ * Package: com.ecom.controller
+ * Description:
+ *
+ * @ Author: wfz
+ * @ Create: 2023-05-15 - 14:48
+ * @ Version: v1.0
+ */
+<span class="fc" id="L21">@Slf4j</span>
+@RestController
+@RequestMapping(&quot;/shops&quot;)
+<span class="fc" id="L24">public class ShopController {</span>
+
+    @Autowired
+    private ShopService shopService;
+
+    /**
+     * 查询商店数据(附带商店名模糊查询)
+     * @ param sname
+     * @ return
+     */
+    @GetMapping
+    public Result list(String sname){
+<span class="nc" id="L36">        log.info(&quot;查询商店数据,参数: {}&quot;, sname);</span>
+
+<span class="nc" id="L38">        List&lt;Shop&gt; shopList = shopService.list(sname);</span>
+<span class="nc" id="L39">        return Result.success(shopList);</span>
+    }
+
+    /**
+     * 根据id删除商店
+     * @ param id
+     * @ return
+     */
+    @DeleteMapping(&quot;/{id}&quot;)
+    public Result delete(@PathVariable Integer id) {
+<span class="nc" id="L49">        log.info(&quot;根据id删除商店:{}&quot;, id);</span>
+
+<span class="nc" id="L51">        shopService.delete(id);</span>
+<span class="nc" id="L52">        return Result.success();</span>
+    }
+
+    /**
+     * 新增商店
+     * @ return
+     */
+    @PostMapping
+    public Result add(@RequestBody Shop shop) {
+<span class="nc" id="L61">        log.info(&quot;新增商店:{}&quot;, shop);</span>
+
+<span class="nc" id="L63">        shopService.add(shop);</span>
+<span class="nc" id="L64">        return Result.success();</span>
+    }
+
+    /**
+     * 根据id查询商店
+     * @ param id
+     * @ return
+     */
+    @GetMapping (&quot;/{id}&quot;)
+    public Result query(@PathVariable Integer id) {
+<span class="nc" id="L74">        log.info(&quot;根据id查询商店:{}&quot;, id);</span>
+
+<span class="nc" id="L76">        Shop shop = shopService.query(id);</span>
+<span class="nc" id="L77">        return Result.success(shop);</span>
+    }
+
+    /**
+     * 修改商店
+     * @ param shop
+     * @ return
+     */
+    @PutMapping
+    public Result modify(@RequestBody Shop shop) {
+<span class="nc" id="L87">        log.info(&quot;修改商店:{}&quot;, shop);</span>
+
+<span class="nc" id="L89">        shopService.modify(shop);</span>
+<span class="nc" id="L90">        return Result.success();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

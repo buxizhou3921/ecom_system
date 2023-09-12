@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ecom_system</a> &gt; <a href="index.source.html" class="el_package">com.ecom.service.impl</a> &gt; <span class="el_source">UserServiceImpl.java</span></div><h1>UserServiceImpl.java</h1><pre class="source lang-java linenums">package com.ecom.service.impl;
+
+import com.ecom.entity.User;
+import com.ecom.mapper.UserMapper;
+import com.ecom.service.GoodService;
+import com.ecom.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ * ClassName: UserServiceImpl
+ * Package: com.ecom.service.impl
+ * Description:
+ *
+ * @ Author: wfz
+ * @ Create: 2023-05-15 - 14:56
+ * @ Version: v1.0
+ */
+
+@Service
+<span class="fc" id="L21">public class UserServiceImpl implements UserService {</span>
+    @Autowired
+    private UserMapper userMapper;
+
+    @Override
+    public User login(User user) {
+<span class="nc" id="L27">        return userMapper.getByUsernameAndPassword(user);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

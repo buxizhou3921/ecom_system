@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GoodServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ecom_system</a> &gt; <a href="index.source.html" class="el_package">com.ecom.service.impl</a> &gt; <span class="el_source">GoodServiceImpl.java</span></div><h1>GoodServiceImpl.java</h1><pre class="source lang-java linenums">package com.ecom.service.impl;
+
+import com.ecom.entity.Good;
+import com.ecom.entity.PageBean;
+import com.ecom.mapper.GoodMapper;
+import com.ecom.service.GoodService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
+
+/**
+ * ClassName: GoodServiceImpl
+ * Package: com.ecom.service.impl
+ * Description:
+ *
+ * @ Author: wfz
+ * @ Create: 2023-05-15 - 14:56
+ * @ Version: v1.0
+ */
+
+<span class="fc" id="L26">@Slf4j</span>
+@Service
+<span class="fc" id="L28">public class GoodServiceImpl implements GoodService {</span>
+
+    @Autowired
+    private GoodMapper goodMapper;
+
+//    @Override
+//    public PageBean page(Integer pageNum, Integer pageSize) {
+//        //1. 获取总记录数
+//        Long count = goodMapper.count();
+//
+//        //2. 获取分页查询结果列表
+//        Integer start = (pageNum - 1) * pageSize;
+//        List&lt;Good&gt; goodList = goodMapper.page(start, pageSize);
+//
+//        //3. 封装PageBean对象
+//        PageBean pageBean = new Page(count, goodList);
+//        return pageBean;
+//    }
+
+    @Override
+    public PageBean page(Integer pageNum, Integer pageSize,
+                         String gname, String gtype, String shop) {
+        //1. 设置分页参数
+<span class="nc" id="L51">        PageHelper.startPage(pageNum, pageSize);</span>
+
+        //2. 执行查询
+<span class="nc" id="L54">        List&lt;Good&gt; goodList = goodMapper.list(gname, gtype, shop);</span>
+<span class="nc" id="L55">        Page&lt;Good&gt; p = (Page&lt;Good&gt;) goodList;</span>
+
+        //3. 封装PageBean对象
+<span class="nc" id="L58">        PageBean pageBean = new PageBean(p.getTotal(), p.getResult());</span>
+<span class="nc" id="L59">        return pageBean;</span>
+    }
+
+    @Override
+    public void delete(List&lt;Integer&gt; ids) {
+<span class="nc" id="L64">        goodMapper.delete(ids);</span>
+<span class="nc" id="L65">    }</span>
+
+    @Override
+    public void save(Good good) {
+<span class="nc" id="L69">        good.setProDate(LocalDate.now());</span>
+<span class="nc" id="L70">        goodMapper.insert(good);</span>
+<span class="nc" id="L71">    }</span>
+
+    @Override
+    public Good getById(Integer id) {
+<span class="nc" id="L75">        return goodMapper.getById(id);</span>
+    }
+
+    @Override
+    public void update(Good good) {
+<span class="nc" id="L80">        good.setProDate(LocalDate.now());</span>
+<span class="nc" id="L81">        goodMapper.update(good);</span>
+<span class="nc" id="L82">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

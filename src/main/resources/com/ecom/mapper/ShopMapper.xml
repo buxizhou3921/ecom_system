@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecom.mapper.ShopMapper">
+    <!--模糊查询-->
+    <select id="list" resultType="com.ecom.entity.Shop">
+        select *
+        from shop
+        <where>
+            <if test="sname != null and sname != ''">
+                sname like concat('%', #{sname}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>

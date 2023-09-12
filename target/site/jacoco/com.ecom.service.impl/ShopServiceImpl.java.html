@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShopServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ecom_system</a> &gt; <a href="index.source.html" class="el_package">com.ecom.service.impl</a> &gt; <span class="el_source">ShopServiceImpl.java</span></div><h1>ShopServiceImpl.java</h1><pre class="source lang-java linenums">package com.ecom.service.impl;
+
+import com.ecom.entity.Shop;
+import com.ecom.mapper.ShopMapper;
+import com.ecom.service.GoodService;
+import com.ecom.service.ShopService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * ClassName: ShopServiceImpl
+ * Package: com.ecom.service.impl
+ * Description:
+ *
+ * @ Author: wfz
+ * @ Create: 2023-05-15 - 14:55
+ * @ Version: v1.0
+ */
+
+@Service
+<span class="fc" id="L23">public class ShopServiceImpl implements ShopService {</span>
+
+    @Autowired
+    private ShopMapper shopMapper;
+
+    @Override
+    public List&lt;Shop&gt; list(String sname) {
+<span class="nc" id="L30">        return shopMapper.list(sname);</span>
+    }
+
+    @Override
+    public void delete(Integer id) {
+<span class="nc" id="L35">        shopMapper.deleteById(id);</span>
+<span class="nc" id="L36">    }</span>
+
+    @Override
+    public void add(Shop shop) {
+<span class="nc" id="L40">        shopMapper.insert(shop);</span>
+<span class="nc" id="L41">    }</span>
+
+    @Override
+    public Shop query(Integer id) {
+<span class="nc" id="L45">        return shopMapper.queryById(id);</span>
+    }
+
+    @Override
+    public void modify(Shop shop) {
+<span class="nc" id="L50">        shopMapper.update(shop);</span>
+<span class="nc" id="L51">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

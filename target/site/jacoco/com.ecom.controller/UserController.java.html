@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ecom_system</a> &gt; <a href="index.source.html" class="el_package">com.ecom.controller</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package com.ecom.controller;
+
+import com.ecom.entity.Result;
+import com.ecom.entity.User;
+import com.ecom.service.UserService;
+import com.ecom.util.JwtUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.javassist.compiler.ast.Variable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+
+/**
+ * ClassName: UserController
+ * Package: com.ecom.controller
+ * Description:
+ *
+ * @ Author: wfz
+ * @ Create: 2023-05-15 - 14:54
+ * @ Version: v1.0
+ */
+
+<span class="fc" id="L27">@Slf4j</span>
+@RestController
+<span class="fc" id="L29">public class UserController {</span>
+
+    @Autowired
+    private UserService userService;
+
+    /**
+     * 店员登录
+     * @ param user
+     * @ return
+     */
+    @PostMapping(&quot;/login&quot;)
+    public Result login(@RequestBody User user, HttpServletRequest request) {
+<span class="nc" id="L41">        log.info(&quot;店员登录：{}&quot;, user);</span>
+<span class="nc" id="L42">        User u = userService.login(user);</span>
+
+        // 登录成功
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        if (u != null) {</span>
+            // 暂不使用令牌技术
+//            HashMap&lt;String, Object&gt; claims = new HashMap&lt;&gt;();
+//            claims.put(&quot;uid&quot;, u.getUid());
+//            claims.put(&quot;username&quot;, u.getUsername());
+//
+//            String jwt = JwtUtils.generateJwt(claims);
+//            return Result.success(jwt);
+
+<span class="nc" id="L54">            request.getSession().setAttribute(&quot;login&quot;, &quot;yes&quot;);</span>
+<span class="nc" id="L55">            return Result.success();</span>
+        }
+
+        // 登录失败，返回错误信息
+<span class="nc" id="L59">        return Result.error(&quot;用户名或密码错误&quot;);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
