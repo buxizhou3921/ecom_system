@@ -10,6 +10,6 @@
         <module name="ecom_system" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="17" />
+    <bytecodeTargetLevel target="8" />
   </component>
 </project>
