@@ -21,9 +21,8 @@ import java.io.IOException;
  */
 
 @Slf4j
-@ServletComponentScan
 @WebFilter(urlPatterns = {"/main.html", "/shop_manage.html", "/good_manage.html"})
-public class LoginFilter extends HttpFilter{
+public class LoginFilterBySession extends HttpFilter{
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;

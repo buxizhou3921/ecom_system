@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class JwtUtils {
 
-    private static String signKey = "itheima";
+    private static String signKey = "buxizhou";
     private static Long expire = 43200000L;
 
     /**

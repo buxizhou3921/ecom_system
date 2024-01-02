@@ -43,7 +43,7 @@ public class UserController {
 
         // 登录成功
         if (u != null) {
-            // 暂不使用令牌技术
+//            // 令牌技术
 //            HashMap<String, Object> claims = new HashMap<>();
 //            claims.put("uid", u.getUid());
 //            claims.put("username", u.getUsername());
@@ -51,6 +51,7 @@ public class UserController {
 //            String jwt = JwtUtils.generateJwt(claims);
 //            return Result.success(jwt);
 
+            // Session技术
             request.getSession().setAttribute("login", "yes");
             return Result.success();
         }
