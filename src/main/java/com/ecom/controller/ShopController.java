@@ -1,5 +1,6 @@
 package com.ecom.controller;
 
+import com.ecom.anno.Log;
 import com.ecom.entity.Result;
 import com.ecom.entity.Shop;
 import com.ecom.service.ShopService;
@@ -44,6 +45,7 @@ public class ShopController {
      * @ param id
      * @ return
      */
+    @Log
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable Integer id) {
         log.info("根据id删除商店:{}", id);
@@ -56,6 +58,7 @@ public class ShopController {
      * 新增商店
      * @ return
      */
+    @Log
     @PostMapping
     public Result add(@RequestBody Shop shop) {
         log.info("新增商店:{}", shop);
@@ -82,6 +85,7 @@ public class ShopController {
      * @ param shop
      * @ return
      */
+    @Log
     @PutMapping
     public Result modify(@RequestBody Shop shop) {
         log.info("修改商店:{}", shop);

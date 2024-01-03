@@ -1,5 +1,6 @@
 package com.ecom.controller;
 
+import com.ecom.anno.Log;
 import com.ecom.entity.Good;
 import com.ecom.entity.PageBean;
 import com.ecom.entity.Result;
@@ -56,6 +57,7 @@ public class GoodController {
      * @ param ids
      * @ return
      */
+    @Log
     @DeleteMapping("/{ids}")
     public Result delete(@PathVariable List<Integer> ids) {
         log.info("批量删除商品, ids: {}", ids);
@@ -69,6 +71,7 @@ public class GoodController {
      * @ param good
      * @ return
      */
+    @Log
     @PostMapping
     public Result save(@RequestBody Good good) {
         log.info("新增商品, good:{}", good);
@@ -93,6 +96,7 @@ public class GoodController {
      * @ param good
      * @ return
      */
+    @Log
     @PutMapping
     public Result update(@RequestBody Good good) {
         log.info("更新商品信息: {}", good);

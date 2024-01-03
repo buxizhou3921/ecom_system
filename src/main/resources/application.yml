@@ -20,6 +20,6 @@ mybatis:
 aliyun:
   oss:
     endpoint: https://oss-cn-beijing.aliyuncs.com
-    accessKeyId: LTAI5t7GrkkUHTScHQw39BQs
-    accessKeySecret: yHf5sglOOy6HO20DgpjxRpfd7tUYcv
-    bucketName: web-wfz
+    accessKeyId:
+    accessKeySecret:
+    bucketName:
